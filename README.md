@@ -1,8 +1,8 @@
 # Purchase-Order-Manager-django
 Django app for POs
 
-Flow
+Flow<br>
 1.Create PO <br>
-2.Approved by intermediate Supervisor
-3.Send email to the supplier
-4.Receive the PO and push data to Fixed Asset App
+2.Approved by intermediate Supervisor<br>
+3.Send email to the supplier<br>
+4.Receive the PO and push data to Fixed Asset App<br>
