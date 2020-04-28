@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+
+{%block title%}
+{%endblock%}
+
+{%block main%}
+
+
+<form method="GET" >
+	<input class="sinput" type="text" name="q" value="{{request.GET.q}}" placeholder="Search In Assets......">
+  <br>
+  <br>
+  <button class="btn btn-primary" type="submit" value="Search" name="submit">Search</button>
+</form>
+
+<br>
+
+
+{% if submitbutton == 'Search' and request.GET.q != '' %}
+{%if results%}
+<ul>
+	{%for result in results %}
+	<li>
+		<a href="{% url 'order:order-detail' result.id %}">{{result.description}} </a>
+	 
+		
+	</li>
+	{%endfor%}
+	
+</ul>
+{%else%}
+<br>
+<br>
+
+<h4>No Results for your search!!!</h4>
+{%endif%}
+{%endif%}
+
+{%endblock%}

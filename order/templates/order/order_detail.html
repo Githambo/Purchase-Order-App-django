@@ -1,0 +1,59 @@
+{%extends 'base.html'%}
+{%load crispy_forms_tags%}
+
+{%block title%}
+{%endblock%}
+
+<style type="text/css">
+	input{
+		 border-radius:10px;
+		 border: 2px;
+	}
+
+</style>
+
+{%block main%}
+    <br>
+	<table style="width: 80%">
+		<tr>
+			<th>DESCRIPTION</th>
+			<th>SINGLE COST</th>
+			<th>QUANTITY</th>
+			<th>TOTAL_COST</th>			
+			<th>CATEGORY</th>			
+			<th>STATUS</th>			
+		</tr>
+		<tr>
+			<td>{{object.description}}</td>
+			<td>{{object.cost}}</td>
+			<td>{{object.quantity}}</td>
+			<td>{{object.total_cost}}</td>			
+			<td>{{object.category}}</td>				
+			<td>{{object.status}}</td>			
+		</tr>		
+	</table>
+
+	<br><br>
+	<div><b>COMMENTS:</b><br>
+		<form>
+			<input type="text" name="comments" value="{{object.comments}}" size="60" height="50">
+		</form>
+	</div>	
+
+	<br>
+	<p><b>Approval Documents is</b> <a href="">here</a></p>
+	
+	<br>	
+	{% if perms.order.can_reject_order%}	
+	<br>
+	<a class="btn btn-primary" href="{% url 'order:order-approve' order.id%}">Approve</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a class="btn btn-primary" href="{% url 'order:order-reject' order.id%}">Reject</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+	{%else%}
+	<a class="btn btn-primary" href="{% url 'order:order-delete' order.id%}">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a class="btn btn-primary" href="{% url 'order:order-update' order.id%}">Update</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	{%endif%}
+
+
+{%endblock%}

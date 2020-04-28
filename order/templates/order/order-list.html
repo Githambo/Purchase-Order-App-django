@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+
+{%block title%}
+{%endblock%}
+
+{%block main%}
+<br>
+
+	<table style="width: 100%">
+		<tr>
+			<th>PO NUMBER</th>
+			<th>DESCRIPTION</th>
+			<th>SINGLE COST</th>
+			<th>QUANTITY</th>
+			<th>TOTAL_COST</th>			
+			<th>CATEGORY</th>			
+			<th>STATUS</th>	
+			<th>DATE_ORDERED</th>		
+		</tr>
+		{% for object in order_per_user%}
+		<tr>
+			<td><a href="{% url 'order:order-detail' object.id%}">PO{{object.id}}</a></td>
+			<td>{{object.description}}</td>
+			<td>{{object.cost}}</td>
+			<td>{{object.quantity}}</td>
+			<td>{{object.total_cost}}</td>			
+			<td>{{object.category}}</td>				
+			<td>{{object.status}}</td>
+			<td>{{object.order_date}}</td>			
+		</tr>
+		{%endfor%}		
+	</table>
+{%endblock%}

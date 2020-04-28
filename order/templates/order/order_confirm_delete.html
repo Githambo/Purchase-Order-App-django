@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+
+{%block title%}
+{%endblock%}
+
+{%block main%}
+<div class=deletediv>
+	<br>
+	<p>Are you sure you want to delete{{object}}!!!</p>
+		<form method="POST" class="deleteform">
+			{% csrf_token%}		
+			<input id="delete-button" type="submit" value="Delete" class="btn btn-primary">			
+		</form>
+		<br>
+		<br>
+</div>
+	<div class="no">
+		<a href="{% url 'order:order-detail' object.id %}"><input class="btn btn-primary" type="submit" value="NO! Take me back"></a>
+	</div>
+{%endblock%}

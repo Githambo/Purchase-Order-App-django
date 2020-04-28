@@ -1,0 +1,124 @@
+{%load static%}
+{%load markdownify%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{%static 'css/base.css'%} ">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="{% static 'js/base.js'%}"></script>
+
+	<title>
+		{%block title%}
+			Homepage
+		{%endblock%}
+	</title>
+</head>
+<body>
+		
+
+	<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container">
+			<a class="navbar-brand" href="/">Home Page</a>
+			<ul class="navbar-nav">
+				{% if user.is_authenticated%}
+				<li class="nav-item">
+					<a class="nav-link" href="">Welcome:&nbsp;&nbsp;<b>{{user}}</b></a>					
+				</li>			
+				
+				<li class="nav-item">
+					<a class="nav-link"  href="{% url 'user:logout' %}"><b>LOG-OUT</b></a>				
+				</li>
+				{%else%}
+				<li class="nav-item">
+					<a class="nav-link"  href="{% url 'user:login' %}">login</a>				
+				</li>
+				{%endif%}				
+			</ul>			
+		</div>		
+	</nav>
+	<div class="main_class">
+		<div class=container>			
+				{%block main%}
+				<div class="side-bar">
+				  <ul>
+				  	<h5>Hello {{user}} what do you want to do today? </h5><br>
+				  	{% if perms.order.can_reject_order%}
+				  	<h5><u>Actions</u></h5>
+				  	<li><a href="{%url 'order:search' %}">Order search</a></li>
+				  	<li><a href="{%url 'order:supplier-add' %}">Add Supplier</a></li>
+					  	
+				  	{%else%}
+				  	<h5><u>Actions</u></h5>
+				  	<li><a href="{%url 'order:search' %}">Order search</a></li>
+				  	<li><a href="{%url 'order:order' %}">Create New Order</a></li>
+				  	<li><a href="{%url 'order:order_per_user' user.id %}">My orders</a></li>
+				  	<li><a href="">Receive PO</a></li>				  
+				  	{%endif%}	
+				  	<br>				  				  	
+				  	  	
+				  	<div class="dropdown">
+				  			<button onclick="myFunction()" class="btn btn-primary">Reports</button>
+				  			<div id="myDropdown" class="dropdown-content">
+							    <a href="{% url 'order:orders-download' %}">All Purchase Orders</a>
+							    <a href="{% url 'order:approved-download' %}">Approved Orders</a>
+							    <a href="{% url 'order:rejected-download' %}">rejected orders</a>
+							</div>			  			
+				  		</div>		  	
+				  </ul>
+				</div>
+				  <div class="unapproved">
+				  	<ul>
+				  		{% if perms.order.can_reject_order%}
+				  		<h5><u>Approval Workflow</u></h5>
+				  			{% if order_list %}
+					  			{% for list in order_list%}
+							  		<li>
+							  			<a href="{% url 'order:order-detail' list.id%}">PO {{list.id}} request for {{list.description}} from {{list.user}}</a>
+							  		</li>
+							  	{%endfor%}
+						  	{%else%}
+						  	<p>No orders to approve!!!</p>
+						  	{%endif%}
+						 {%else%}
+						 <h5><u>Unapproved Orders</u></h5>
+						 	{% if q%}
+							 	{% for p_orders in q %}
+							 		<li>
+							 			<a href="{% url 'order:order-detail' p_orders.id%}">PO{{p_orders.id}} {{p_orders.description}}</a>					 			
+							 		</li>
+							 	{%endfor%}
+							 {%else%}
+							 <p>No Approved Orders </p>							 
+				  		{%endif%}
+				  		
+				  		
+				  	</ul>
+				  </div>
+				 <div class="user-notify">
+				  	<h5><u>Workflow</u></h5>				  	
+				  	{% if user_approved %}
+						{% for po in user_approved %}
+							 <li>
+							 	<a href="{% url 'order:order-detail' po.id%}">PO {{po.id}} {{po.description}} Has been {{po.status}}</a>	 		
+							 </li>
+						{%endfor%}
+					{%else%}
+						<p>No Approved Orders ambia manager achangamke hehehehe </p>							 
+				  	{%endif%}
+				  	{%endif%}				  			
+				 </div>
+				
+				  		
+			    {%endblock%}
+			     {%block foo%}
+				 {%endblock%}		
+					
+		</div>	
+	</div>	
+	
+</body>	
+</html>
+
