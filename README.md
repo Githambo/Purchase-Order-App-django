@@ -17,8 +17,8 @@ Add "po" to your INSTALLED_APPS setting like this:: INSTALLED_APPS = [ ... 'po',
 
 Include the po URLconf in your project urls.py like this:: path('po/', include('po.urls')),
 
-Run python manage.py migrate to create the Erp models.
+Run python manage.py migrate to create the order model.
 
 Start the development server and visit http://127.0.0.1:8000/admin/to Add assets and perfom the operations (you'll need the Admin app enabled).
 
-Visit http://127.0.0.1:8000/Erp/ to Enjoy various actions
+Visit http://127.0.0.1:8000/po/ to Enjoy various actions
